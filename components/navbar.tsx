@@ -18,7 +18,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/team", label: "Team" },
-  { href: "/portfolio", label: "Portfolio" },
+  { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
   { href: "/testimonials", label: "Testimonials" },
   { href: "/careers", label: "Careers" },
@@ -96,7 +96,7 @@ export function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           </motion.div>
-          {["Portfolio", "Blog", "Testimonials", "Careers"].map((item, index) => (
+          {["Projects", "Blog", "Testimonials", "Careers"].map((item, index) => (
             <motion.div
               key={item}
               initial={{ opacity: 0, y: -10 }}

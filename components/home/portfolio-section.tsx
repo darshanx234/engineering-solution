@@ -7,7 +7,7 @@ import { useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { SectionHeading } from "@/components/section-heading"
 import { ProjectCard } from "@/components/project-card"
-import { projects } from "@/data/portfolio"
+import { projects } from "@/data/projects"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -22,11 +22,11 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }
   }
 }
 
@@ -44,21 +44,21 @@ export function PortfolioSection() {
           transition={{ duration: 0.6 }}
         >
           <SectionHeading
-            label="Featured Work"
+            label="Residential Excellence"
             title="Our Latest Projects"
-            description="Explore our portfolio of completed projects spanning residential, commercial, and turnkey solutions."
+            description="Explore our portfolio of recently completed residential projects across Gujarat."
           />
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           {featuredProjects.map((project) => (
-            <motion.div 
-              key={project.id} 
+            <motion.div
+              key={project.id}
               variants={itemVariants}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
@@ -66,16 +66,16 @@ export function PortfolioSection() {
             </motion.div>
           ))}
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="mt-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.9 }}
         >
           <Button asChild className="transition-transform hover:scale-105">
-            <Link href="/portfolio">
-              View Full Portfolio
+            <Link href="/projects">
+              View All Projects
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

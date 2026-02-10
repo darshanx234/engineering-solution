@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 
 const highlights = [
   "Full-service design and construction",
-  "Award-winning architecture team",
   "On-time and on-budget delivery",
   "Sustainable building practices",
 ]
@@ -22,13 +21,13 @@ export function AboutPreview() {
     <section ref={ref} className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <motion.div 
+          <motion.div
             className="relative"
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.div 
+            <motion.div
               className="relative aspect-[4/3] overflow-hidden rounded-lg bg-muted"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
@@ -40,7 +39,7 @@ export function AboutPreview() {
                 className="object-cover"
               />
             </motion.div>
-            <motion.div 
+            <motion.div
               className="absolute -bottom-6 -right-6 hidden rounded-lg bg-primary p-6 text-primary-foreground shadow-xl sm:block"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -51,13 +50,13 @@ export function AboutPreview() {
               <p className="text-sm text-primary-foreground/80">Years of Excellence</p>
             </motion.div>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.p 
+            <motion.p
               className="mb-2 text-sm font-medium uppercase tracking-wider text-muted-foreground"
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
@@ -65,7 +64,7 @@ export function AboutPreview() {
             >
               About Smart Engineers
             </motion.p>
-            <motion.h2 
+            <motion.h2
               className="text-pretty text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -73,7 +72,7 @@ export function AboutPreview() {
             >
               Building Dreams Into Reality Since 2004
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="mt-6 text-muted-foreground"
               initial={{ opacity: 0, y: 15 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
@@ -84,7 +83,7 @@ export function AboutPreview() {
               decades of experience, we have transformed countless visions into stunning
               realities across residential, commercial, and industrial sectors.
             </motion.p>
-            <motion.p 
+            <motion.p
               className="mt-4 text-muted-foreground"
               initial={{ opacity: 0, y: 15 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
@@ -94,11 +93,11 @@ export function AboutPreview() {
               ensuring every project is completed to the highest standards of quality,
               sustainability, and client satisfaction.
             </motion.p>
-            
+
             <ul className="mt-8 space-y-3">
               {highlights.map((item, index) => (
-                <motion.li 
-                  key={item} 
+                <motion.li
+                  key={item}
                   className="flex items-center gap-3"
                   initial={{ opacity: 0, x: 20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
@@ -109,7 +108,7 @@ export function AboutPreview() {
                 </motion.li>
               ))}
             </ul>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

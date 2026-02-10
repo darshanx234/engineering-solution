@@ -37,7 +37,7 @@ function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string })
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-primary">
-      <motion.div 
+      <motion.div
         className="absolute inset-0"
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
@@ -53,7 +53,7 @@ export function HeroSection() {
       </motion.div>
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
         <div className="max-w-2xl">
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -61,7 +61,7 @@ export function HeroSection() {
           >
             Architecture + Interior + Construction
           </motion.p>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -69,7 +69,7 @@ export function HeroSection() {
           >
             Engineering Spaces That Inspire
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -79,7 +79,7 @@ export function HeroSection() {
             spaces that blend innovative design with superior craftsmanship. Your vision,
             our expertise.
           </motion.p>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
@@ -106,16 +106,16 @@ export function HeroSection() {
           </motion.div>
         </div>
       </div>
-      
+
       {/* Stats Bar */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.9 }}
         className="relative border-t border-primary-foreground/10 bg-primary-foreground/5"
       >
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-8 sm:px-6 md:grid-cols-4 lg:px-8">
-          <motion.div 
+          <motion.div
             className="text-center"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
@@ -125,35 +125,35 @@ export function HeroSection() {
             </p>
             <p className="mt-1 text-sm text-primary-foreground/70">Projects Completed</p>
           </motion.div>
-          <motion.div 
+          <motion.div
             className="text-center"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
             <p className="text-3xl font-bold text-primary-foreground">
-              <AnimatedCounter end={20} suffix="+" />
+              <AnimatedCounter end={10} suffix="+" />
             </p>
             <p className="mt-1 text-sm text-primary-foreground/70">Years Experience</p>
           </motion.div>
-          <motion.div 
+          <motion.div
             className="text-center"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
             <p className="text-3xl font-bold text-primary-foreground">
-              <AnimatedCounter end={50} suffix="+" />
+              <AnimatedCounter end={10} suffix="+" />
             </p>
             <p className="mt-1 text-sm text-primary-foreground/70">Expert Team</p>
           </motion.div>
-          <motion.div 
+          <motion.div
             className="text-center"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <p className="text-3xl font-bold text-primary-foreground">
-              <AnimatedCounter end={15} suffix="+" />
+            <p className="text-lg font-bold text-primary-foreground">
+              All Over Gujarat
             </p>
-            <p className="mt-1 text-sm text-primary-foreground/70">Cities Served</p>
+            <p className="mt-1 text-sm text-primary-foreground/70">Service Coverage</p>
           </motion.div>
         </div>
       </motion.div>
