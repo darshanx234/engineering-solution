@@ -4,7 +4,21 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    qualities: [25, 50, 60, 75],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+      },
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com"
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com"
+      }
+    ],
   },
 }
 
