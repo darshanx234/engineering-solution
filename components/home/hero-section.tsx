@@ -131,7 +131,7 @@ export function HeroSection() {
             transition={{ duration: 0.2 }}
           >
             <p className="text-3xl font-bold text-primary-foreground">
-              <AnimatedCounter end={10} suffix="+" />
+              <AnimatedCounter end={5} suffix="+" />
             </p>
             <p className="mt-1 text-sm text-primary-foreground/70">Years Experience</p>
           </motion.div>

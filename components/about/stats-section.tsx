@@ -5,7 +5,7 @@ import { CheckCircle, ShieldCheck, Zap, Award } from "lucide-react"
 
 const stats = [
     { icon: CheckCircle, label: "Projects Completed", value: "500+" },
-    { icon: Award, label: "Years Experience", value: "10+" },
+    { icon: Award, label: "Years Experience", value: "5+" },
     { icon: ShieldCheck, label: "Happy Clients", value: "250+" },
     { icon: Zap, label: "Expert Team", value: "15+" },
 ]

@@ -38,14 +38,18 @@ export function Footer() {
             </p>
             <div className="mt-6 flex gap-4">
               <a
-                href="#"
+                href="https://www.facebook.com/share/1DtN9KqGeX/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/smartengineershub?igsh=MXJ1NW4xemdvNTd0Mw=="
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 aria-label="Instagram"
               >
@@ -59,7 +63,9 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="https://x.com/SEngineers95890"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 aria-label="Twitter"
               >

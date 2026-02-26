@@ -46,7 +46,7 @@ export function AboutPreview() {
               transition={{ duration: 0.5, delay: 0.4 }}
               whileHover={{ scale: 1.05 }}
             >
-              <p className="text-4xl font-bold">20+</p>
+              <p className="text-4xl font-bold">5+</p>
               <p className="text-sm text-primary-foreground/80">Years of Excellence</p>
             </motion.div>
           </motion.div>
