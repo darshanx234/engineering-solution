@@ -7,7 +7,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import { ImageGallery } from "@/components/image-gallery"
 import { MotionDiv } from "@/components/motion-wrappers"
 import { getProjectBySlug, projects } from "@/data/projects"
-import { MapPin, User, Home, CheckCircle, ArrowLeft, CloudCog } from "lucide-react"
+import { MapPin, Home, CheckCircle, ArrowLeft, CloudCog } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ProjectPageProps {
@@ -75,10 +75,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
                             <div className="mt-6 flex flex-wrap gap-6 text-white/90">
                                 <div className="flex items-center gap-2">
-                                    <User className="h-5 w-5" />
-                                    <span className="text-sm font-medium">Client: {project.client}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
                                     <MapPin className="h-5 w-5" />
                                     <span className="text-sm font-medium">{project.location}</span>
                                 </div>
@@ -144,11 +140,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                                     <h3 className="mb-6 text-xl font-semibold text-foreground">Project Information</h3>
 
                                     <div className="space-y-4">
-                                        <div className="border-b pb-4">
-                                            <p className="text-sm text-muted-foreground">Client</p>
-                                            <p className="mt-1 font-medium text-foreground">{project.client}</p>
-                                        </div>
-
                                         <div className="border-b pb-4">
                                             <p className="text-sm text-muted-foreground">Location</p>
                                             <p className="mt-1 font-medium text-foreground">{project.location}</p>
