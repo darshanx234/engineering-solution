@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { MapPin, User, ArrowRight } from "lucide-react"
+import { MapPin, ArrowRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { Project } from "@/data/projects"
@@ -46,10 +46,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </h3>
 
             <div className="mb-3 space-y-1">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <User className="h-4 w-4" />
-                <span>{project.client}</span>
-              </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
                 <span>{project.location}</span>
