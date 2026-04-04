@@ -114,18 +114,18 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               <li className="flex items-start gap-3 text-sm text-primary-foreground/80">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>1109, Sun Gravitas, Shyamal Cross Rd, Rajmani Society, Shyamal, Ahmedabad, Gujarat 380015</span>
+                <span>Surendranagar, Gujarat 363020</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <Phone className="h-4 w-4 shrink-0" />
-                <a href="tel:+919876543210" className="hover:text-primary-foreground">
-                  +91 99256 16966,<br /> +91 99256 44236
+                <a href="tel:+919925616966" className="hover:text-primary-foreground">
+                  +91 9925616966,<br /> +91 9925616966
                 </a>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <Mail className="h-4 w-4 shrink-0" />
-                <a href="mailto:info@smartengineers.in" className="hover:text-primary-foreground">
-                  info@smartengineers.in
+                <a href="mailto:smartengineering@gmail.com" className="hover:text-primary-foreground">
+                  smartengineering@gmail.com
                 </a>
               </li>
             </ul>

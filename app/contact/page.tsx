@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, AlertCircle, CheckCircle2, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -18,11 +18,50 @@ export default function ContactPage() {
         subject: "",
         message: "",
     })
+    const [isLoading, setIsLoading] = useState(false)
+    const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
+    const [message, setMessage] = useState("")
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // Handle form submission here
-        console.log("Form submitted:", formData)
+        setIsLoading(true)
+        setStatus("idle")
+        setMessage("")
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                setStatus("success")
+                setMessage(data.message || "Thank you! We'll get back to you soon.")
+                setFormData({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    subject: "",
+                    message: "",
+                })
+                // Auto-hide success message after 5 seconds
+                setTimeout(() => setStatus("idle"), 5000)
+            } else {
+                setStatus("error")
+                setMessage(data.error || "Failed to send message. Please try again.")
+            }
+        } catch (error) {
+            setStatus("error")
+            setMessage("An error occurred. Please try again later.")
+            console.error("Form submission error:", error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -84,9 +123,7 @@ export default function ContactPage() {
                                         <div>
                                             <h3 className="font-semibold text-foreground">Office Address</h3>
                                             <p className="mt-1 text-sm text-muted-foreground">
-                                                1109, Sun Gravitas, Shyamal Cross Rd,<br />
-                                                Rajmani Society, Shyamal,<br />
-                                                Ahmedabad, Gujarat 380015
+                                                Surendranagar, Gujarat 363020
                                             </p>
                                         </div>
                                     </div>
@@ -99,11 +136,11 @@ export default function ContactPage() {
                                             <h3 className="font-semibold text-foreground">Phone Numbers</h3>
                                             <p className="mt-1 text-sm text-muted-foreground">
                                                 <a href="tel:+919925616966" className="hover:text-primary transition-colors">
-                                                    +91 99256 16966
+                                                    +91 9925616966
                                                 </a>
                                                 <br />
-                                                <a href="tel:+919925644236" className="hover:text-primary transition-colors">
-                                                    +91 99256 44236
+                                                <a href="tel:+919925616966" className="hover:text-primary transition-colors">
+                                                    +91 9925616966
                                                 </a>
                                             </p>
                                         </div>
@@ -116,8 +153,8 @@ export default function ContactPage() {
                                         <div>
                                             <h3 className="font-semibold text-foreground">Email</h3>
                                             <p className="mt-1 text-sm text-muted-foreground">
-                                                <a href="mailto:info@smartengineers.in" className="hover:text-primary transition-colors">
-                                                    info@smartengineers.in
+                                                <a href="mailto:smartengineering@gmail.com" className="hover:text-primary transition-colors">
+                                                    smartengineering@gmail.com
                                                 </a>
                                             </p>
                                         </div>
@@ -146,6 +183,29 @@ export default function ContactPage() {
                                 transition={{ duration: 0.6 }}
                             >
                                 <form onSubmit={handleSubmit} className="space-y-6 rounded-lg border bg-card p-4 shadow-lg sm:p-6 lg:p-8">
+                                    {/* Status Messages */}
+                                    {status === "success" && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="flex items-center gap-3 rounded-lg bg-green-50 p-4 text-green-800"
+                                        >
+                                            <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600" />
+                                            <p className="text-sm font-medium">{message}</p>
+                                        </motion.div>
+                                    )}
+
+                                    {status === "error" && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="flex items-center gap-3 rounded-lg bg-red-50 p-4 text-red-800"
+                                        >
+                                            <AlertCircle className="h-5 w-5 shrink-0 text-red-600" />
+                                            <p className="text-sm font-medium">{message}</p>
+                                        </motion.div>
+                                    )}
+
                                     <div>
                                         <label htmlFor="name" className="block text-sm font-medium text-foreground">
                                             Full Name *
@@ -157,6 +217,7 @@ export default function ContactPage() {
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
+                                            disabled={isLoading}
                                             className="mt-2"
                                             placeholder="John Doe"
                                         />
@@ -173,6 +234,7 @@ export default function ContactPage() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
+                                            disabled={isLoading}
                                             className="mt-2"
                                             placeholder="john@example.com"
                                         />
@@ -189,6 +251,7 @@ export default function ContactPage() {
                                             value={formData.phone}
                                             onChange={handleChange}
                                             required
+                                            disabled={isLoading}
                                             className="mt-2"
                                             placeholder="+91 12345 67890"
                                         />
@@ -205,6 +268,7 @@ export default function ContactPage() {
                                             value={formData.subject}
                                             onChange={handleChange}
                                             required
+                                            disabled={isLoading}
                                             className="mt-2"
                                             placeholder="Project Inquiry"
                                         />
@@ -220,14 +284,26 @@ export default function ContactPage() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             required
+                                            disabled={isLoading}
                                             rows={5}
                                             className="mt-2"
                                             placeholder="Tell us about your project..."
                                         />
                                     </div>
 
-                                    <Button type="submit" className="w-full transition-transform hover:scale-105">
-                                        Send Message
+                                    <Button 
+                                        type="submit" 
+                                        disabled={isLoading}
+                                        className="w-full transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
+                                    >
+                                        {isLoading ? (
+                                            <>
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                Sending...
+                                            </>
+                                        ) : (
+                                            "Send Message"
+                                        )}
                                     </Button>
                                 </form>
                             </motion.div>

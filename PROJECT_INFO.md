@@ -29,12 +29,12 @@ We offer a comprehensive range of engineering and design services:
 ## 📂 Notable Projects
 Our portfolio includes high-quality residential developments such as:
 
-- **Dhirubhai Residence** (Bajarangpura)
-- **Bipinbhai Residence** (Ratanpar)
-- **Hirenbhai Golani - Shiv Dharmanandan** (Ratanpar)
-- **Bhavanbhai Vaghela Residence** (Ratanpar)
-- **Jaypalshingh Zala Residence** (Ratanpar)
-- **Khushalbhai Patel - Patidar Sanskruti Township** (Ratanpar)
+- **Modern Residential Design** (Bajarangpura)
+- **Contemporary Home Development** (Ratanpar)
+- **Luxury Residence Design** (Shiv Dharmanandan, Ratanpar)
+- **Premium Residential Architecture** (Ratanpar)
+- **Elegant Home Design** (Ratanpar)
+- **Patidar Sanskruti Township Residence** (Patidar Sanskruti Township, Ratanpar)
 
 ---
 

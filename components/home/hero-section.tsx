@@ -37,19 +37,33 @@ function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string })
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-primary">
+      {/* Video Background with Fallback */}
       <motion.div
         className="absolute inset-0"
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Image
-          src="/images/hero-bg.jpg"
-          alt="Modern architecture"
-          fill
-          className="object-cover opacity-20"
-          priority
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero-bg.jpg"
+          className="h-full w-full object-cover opacity-20"
+          aria-label="Architecture construction time-lapse background video"
+        >
+          <source src="/videos/hero-animation.webm" type="video/webm" />
+          <source src="/videos/hero-animation.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          <Image
+            src="/images/hero-bg.jpg"
+            alt="Modern architecture"
+            fill
+            className="object-cover"
+            priority
+          />
+        </video>
       </motion.div>
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
         <div className="max-w-2xl">

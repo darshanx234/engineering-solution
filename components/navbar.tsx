@@ -66,7 +66,7 @@ export function Navbar() {
             whileTap={{ scale: 0.95 }}
           >
             <Image
-              src="/logo1.png"
+              src="/logo_new.png"
               alt="Smart Engineers Logo"
               width={60}
               height={100}
