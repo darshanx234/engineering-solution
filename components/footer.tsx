@@ -114,7 +114,7 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               <li className="flex items-start gap-3 text-sm text-primary-foreground/80">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>Surendranagar, Gujarat 363020</span>
+                <span>Amber Plaza, Near Jelchok, Shop No. 11, Second Floor,<br />Surendranagar, Gujarat 363020</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <Phone className="h-4 w-4 shrink-0" />

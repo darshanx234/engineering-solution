@@ -40,8 +40,8 @@ Our portfolio includes high-quality residential developments such as:
 
 ## 📞 Contact Information
 **Address:**
-1109, Sun Gravitas, Shyamal Cross Rd, Rajmani Society,
-Shyamal, Ahmedabad, Gujarat 380015
+Amber Plaza, Near Jelchok, Shop No. 11, Second Floor,
+Surendranagar, Gujarat 363020
 
 **Phone:** 
 - +91 99256 16966

@@ -123,6 +123,7 @@ export default function ContactPage() {
                                         <div>
                                             <h3 className="font-semibold text-foreground">Office Address</h3>
                                             <p className="mt-1 text-sm text-muted-foreground">
+                                                Amber Plaza, Near Jelchok, Shop No. 11, Second Floor,<br />
                                                 Surendranagar, Gujarat 363020
                                             </p>
                                         </div>
