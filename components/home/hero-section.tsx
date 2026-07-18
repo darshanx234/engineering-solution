@@ -2,175 +2,151 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
-import { motion, useInView } from "framer-motion"
-import { useRef, useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { ArrowUpRight } from "lucide-react"
+import { motion } from "framer-motion"
 
-function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
+const brands = [
+  { name: "MILANO", style: "font-serif tracking-[0.25em] font-bold" },
+  { name: "VENTO", style: "font-sans tracking-[0.3em] font-black" },
+  { name: "SPAZIO", style: "font-sans tracking-[0.4em] font-light" },
+  { name: "FRIDEC", style: "font-serif tracking-[0.15em] italic font-semibold" },
+  { name: "ZENITH", style: "font-sans tracking-[0.2em] font-semibold uppercase" },
+  { name: "LEGAL", style: "font-serif tracking-[0.3em] font-medium" },
+]
 
-  useEffect(() => {
-    if (isInView) {
-      const duration = 2000
-      const steps = 60
-      const increment = end / steps
-      let current = 0
-      const timer = setInterval(() => {
-        current += increment
-        if (current >= end) {
-          setCount(end)
-          clearInterval(timer)
-        } else {
-          setCount(Math.floor(current))
-        }
-      }, duration / steps)
-      return () => clearInterval(timer)
-    }
-  }, [isInView, end])
-
-  return <span ref={ref}>{count}{suffix}</span>
-}
+// Double the list for infinite scroll effect
+const tickerBrands = [...brands, ...brands, ...brands, ...brands]
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-primary">
-      {/* Video Background with Fallback */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-      >
+    <section className="relative min-h-screen flex flex-col justify-between bg-[#0a0a0a] text-white pt-24 overflow-hidden">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
         <video
           autoPlay
           muted
           loop
           playsInline
-          poster="/images/hero-bg.jpg"
-          className="h-full w-full object-cover opacity-20"
-          aria-label="Architecture construction time-lapse background video"
+          preload="auto"
+          poster="/images/hero_interior.png"
+          className="absolute inset-0 w-full h-full object-cover opacity-55"
+          aria-hidden="true"
         >
-          <source src="/videos/hero-animation.webm" type="video/webm" />
           <source src="/videos/hero-animation.mp4" type="video/mp4" />
           {/* Fallback for browsers that don't support video */}
           <Image
-            src="/images/hero-bg.jpg"
-            alt="Modern architecture"
+            src="/images/hero_interior.png"
+            alt="Modern luxury interior design"
             fill
-            className="object-cover"
+            className="object-cover opacity-45"
             priority
           />
         </video>
-      </motion.div>
-      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
-        <div className="max-w-2xl">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-4 text-sm font-medium uppercase tracking-wider text-primary-foreground/80"
-          >
-            Architecture + Interior + Construction
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-pretty text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl"
-          >
-            Engineering Spaces That Inspire
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-6 text-lg text-primary-foreground/80"
-          >
-            From concept to completion, we create exceptional residential and commercial
-            spaces that blend innovative design with superior craftsmanship. Your vision,
-            our expertise.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-transform hover:scale-105"
+        {/* Gradient overlays for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-[#0a0a0a]/60" />
+        <div className="absolute inset-0 bg-[#0a0a0a]/25" />
+      </div>
+
+      {/* Main Grid Content */}
+      <div className="relative z-10 mx-auto max-w-7xl w-full px-6 lg:px-8 flex-1 flex flex-col justify-center py-16 sm:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+          {/* Left Column: Heading and CTA */}
+          <div className="lg:col-span-8 space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Link href="/portfolio">
-                View Portfolio
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <h1 className="font-serif text-5xl sm:text-7xl font-light leading-[1.1] tracking-wide max-w-3xl">
+                Modern Interior <br />
+                <span className="font-serif italic font-normal text-white/80">Design Solution</span>
+              </h1>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="flex items-center gap-4"
+            >
+              <Link
+                href="/projects"
+                className="group flex items-center gap-3 text-xs uppercase tracking-[0.25em] font-medium py-3 border-b border-white/20 transition-all duration-300 hover:border-white"
+              >
+                Explore Projects
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-[#0a0a0a]">
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </span>
               </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent transition-transform hover:scale-105"
+            </motion.div>
+          </div>
+
+          {/* Right Column: Designer Info/Quote Overlay Card */}
+          <div className="lg:col-span-4 flex justify-end">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-black/40 backdrop-blur-md border border-white/10 p-6 sm:p-8 max-w-sm w-full space-y-6"
             >
-              <Link href="/contact">Get a Quote</Link>
-            </Button>
-          </motion.div>
+              <div className="flex gap-4 items-start">
+                <span className="text-3xl font-serif text-white/40 leading-none">“</span>
+                <p className="text-xs sm:text-sm font-light leading-relaxed text-white/80">
+                  We design functional and elegant interiors for homes, offices, and commercial spaces. Our approach combines modern design, comfort, and luxury.
+                </p>
+              </div>
+              {/* <div className="flex items-center gap-4 border-t border-white/10 pt-4">
+                <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/20">
+                  <Image
+                    src="/placeholder-user.jpg"
+                    alt="Lead Architect"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <h4 className="text-xs uppercase tracking-[0.15em] font-medium">Esther Howard</h4>
+                  <p className="text-[10px] text-white/50 uppercase tracking-[0.1em] mt-0.5">Lead Designer</p>
+                </div>
+              </div> */}
+            </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Stats Bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.9 }}
-        className="relative border-t border-primary-foreground/10 bg-primary-foreground/5"
-      >
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-8 sm:px-6 md:grid-cols-4 lg:px-8">
+      {/* Infinite Horizontal Brands Ticker */}
+      {/* <div className="relative z-10 border-t border-white/5 bg-[#0a0a0a]/90 backdrop-blur-sm py-8 overflow-hidden select-none">
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent z-20 pointer-events-none" />
+        
+        <div className="flex flex-col gap-4 text-center mb-4">
+          <p className="text-[10px] uppercase tracking-[0.35em] text-white/40">Trusted Brands We Work With</p>
+        </div>
+
+        <div className="flex w-[200%] md:w-[150%] gap-4 overflow-hidden">
           <motion.div
-            className="text-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
+            animate={{ x: [0, "-50%"] }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 25,
+                ease: "linear",
+              },
+            }}
+            className="flex gap-16 md:gap-24 shrink-0 whitespace-nowrap items-center min-w-full justify-around"
           >
-            <p className="text-3xl font-bold text-primary-foreground">
-              <AnimatedCounter end={500} suffix="+" />
-            </p>
-            <p className="mt-1 text-sm text-primary-foreground/70">Projects Completed</p>
-          </motion.div>
-          <motion.div
-            className="text-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <p className="text-3xl font-bold text-primary-foreground">
-              <AnimatedCounter end={5} suffix="+" />
-            </p>
-            <p className="mt-1 text-sm text-primary-foreground/70">Years Experience</p>
-          </motion.div>
-          <motion.div
-            className="text-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <p className="text-3xl font-bold text-primary-foreground">
-              <AnimatedCounter end={10} suffix="+" />
-            </p>
-            <p className="mt-1 text-sm text-primary-foreground/70">Expert Team</p>
-          </motion.div>
-          <motion.div
-            className="text-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <p className="text-lg font-bold text-primary-foreground">
-              All Over Gujarat
-            </p>
-            <p className="mt-1 text-sm text-primary-foreground/70">Service Coverage</p>
+            {tickerBrands.map((brand, i) => (
+              <span 
+                key={i} 
+                className={`${brand.style} text-sm md:text-base text-white/40 transition-colors duration-300 hover:text-white/80`}
+              >
+                {brand.name}
+              </span>
+            ))}
           </motion.div>
         </div>
-      </motion.div>
+      </div> */}
     </section>
   )
 }

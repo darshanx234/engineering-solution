@@ -1,0 +1,25 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 526 330" width="526" height="330" role="img" aria-label="Smart Engineers Logo">
+  <title>Smart Engineers</title>
+  <style>
+    tspan{white-space:pre}
+    .mark{fill:#5a5a52}
+    .mark-accent{fill:#8a8fa0}
+    .wordmark-primary{font-size:70px;text-transform:uppercase;fill:#3d3d38;font-weight:800;font-family:"Eurostile Extended","Arial Black",sans-serif}
+    .wordmark-sub{font-size:11px;text-transform:uppercase;fill:#5a5a52;font-weight:400;font-family:"NimbusSanL-Reg","Nimbus Sans L","Arial",sans-serif}
+  </style>
+  <!-- Architectural mark -->
+  <path class="mark" d="m275.3 107.6c-13.9 3.1-27.9 6.2-41.9 9.4 0 16.2 0 32.4 0 48.8-14.4 0-28.6 0-42.9 0 0-23.7 0-47.3 0-71.2 28.1 0 56.2 0 84.2 0 0.2-0.3 0.3-0.4 0.3-0.5 0.3-5.4 0.6-4.4-3.8-4.5-19.5-0.3-38.9-0.5-58.4-0.7-6.9-0.1-13.7-0.2-20.6-0.2-0.5 0-1.1-0.1-1.7-0.1 0-29.5 0-58.8 0-88.3 47.1 0 94.2 0 141.4 0 0 11.5 0 23 0 34.7q-53.5 0-107 0c-2.8 12.4 1.5 22.6 12.1 28.8 2.6 1.4 5.4 2.6 8.1 3.8 5.2 2.2 10.5 4 15.6 6.4 3.4 1.6 6.7 3.5 9.6 5.8 3.6 2.7 5.2 6.4 5 11.1-0.2 5.4 0 10.9 0 16.7z"/>
+  <path class="mark" d="m332 120.3c-13.2 0-26.2 0-39.4 0q0-4 0-7.9c0-7.2-0.1-14.3 0-21.4 0.1-6.2-2.5-10.9-7.2-14.6-5.9-4.7-13.1-7-20-9.7-7.9-3-15.8-6-23.6-9.3-3.6-1.5-6.5-4.1-8.5-7.5-1.5-2.7-2.3-5.6-1.8-8.9 33.4 0 66.9 0 100.5 0 0 26.4 0 52.7 0 79.3z"/>
+  <path class="mark" d="m331.8 165.9c-12.9 0-25.9 0-39.1 0 0-13.3 0-26.6 0-39.9q19 0 37.9 0c1 0 1.5 0.2 1.5 1.3q0 19-0.1 38.1c0 0.1-0.1 0.2-0.2 0.5z"/>
+  <path class="mark-accent" d="m275.3 157.8c-4.7-1.4-9.3-2.8-13.9-4.3-3.1-0.9-3-1-3-4.1q0-15.1 0-30.1c0-0.7 0-1.4 0-2.2 5.6-1.5 11.2-3 16.9-4.6 0 15.2 0 30.1 0 45.3z"/>
+  <!-- SMART wordmark -->
+  <text style="transform:matrix(2,0,0,2,258.073,292.977)">
+    <tspan x="-134.1" y="0" class="wordmark-primary" dx="0 -1 -1 -1 -1 -1">SMART
+</tspan>
+  </text>
+  <!-- ENGINEERS sub-label -->
+  <text style="transform:matrix(2,0,0,2,260.813,329.026)">
+    <tspan x="-78.4" y="0" class="wordmark-sub" dx="0 11 11 11 11 11 11 11 11 11">ENGINEERS
+</tspan>
+  </text>
+</svg>

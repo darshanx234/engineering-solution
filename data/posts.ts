@@ -36,7 +36,7 @@ At Smart Engineers, we're committed to incorporating these sustainable practices
     author: "Ar. Rajesh Patel",
     date: "2024-01-15",
     readTime: "5 min read",
-    thumbnail: "https://plus.unsplash.com/premium_photo-1748217392686-56e45fcaee65?q=80&w=1470&auto=format&fit=crop"
+    thumbnail: "/images/blog_sustainable_architecture.png"
   },
   {
     id: "2",
@@ -63,7 +63,7 @@ Our design team at Smart Engineers works closely with clients to understand thei
     author: "Priya Sharma",
     date: "2024-01-10",
     readTime: "4 min read",
-    thumbnail: "https://images.unsplash.com/photo-1760067537204-fe9b55b2f1b0?q=80&w=764&auto=format&fit=crop"
+    thumbnail: "/images/blog_interior_style.png"
   },
   {
     id: "3",
@@ -92,7 +92,7 @@ At Smart Engineers, our experienced project managers apply these principles to d
     author: "Vikram Singh",
     date: "2024-01-05",
     readTime: "6 min read",
-    thumbnail: "https://plus.unsplash.com/premium_photo-1682377521741-66b111791809?q=80&w=1471&auto=format&fit=crop"
+    thumbnail: "/images/blog_construction_management.png"
   },
   {
     id: "4",
@@ -124,7 +124,7 @@ Smart Engineers offers both approaches, allowing clients to choose what works be
     author: "Anita Desai",
     date: "2023-12-28",
     readTime: "5 min read",
-    thumbnail: "https://media.istockphoto.com/id/1138679697/photo/rural-view-over-lonavala.webp?a=1&b=1&s=612x612&w=0&k=20&c=0yuoGEgIGEfnx4ozhgCF8GyIw2_0gRJIgX5ICJhjSkQ="
+    thumbnail: "/images/blog_turnkey_construction.png"
   },
   {
     id: "5",
@@ -150,7 +150,7 @@ At Smart Engineers, our structural team combines technical expertise with innova
     author: "Dr. Suresh Kumar",
     date: "2023-12-20",
     readTime: "4 min read",
-    thumbnail: "https://plus.unsplash.com/premium_photo-1682377521741-66b111791809?q=80&w=1471&auto=format&fit=crop"
+    thumbnail: "/images/blog_structural_engineering.png"
   },
   {
     id: "6",
@@ -189,7 +189,7 @@ Smart Engineers' furniture division creates bespoke pieces that perfectly comple
     author: "Meera Iyer",
     date: "2023-12-15",
     readTime: "5 min read",
-    thumbnail: "https://images.unsplash.com/photo-1559998852-f8ab898d889e?q=80&w=631&auto=format&fit=crop"
+    thumbnail: "/images/blog_custom_furniture.png"
   }
 ]
 

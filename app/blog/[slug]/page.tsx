@@ -4,12 +4,9 @@ import { notFound } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
-import { BlogCard } from "@/components/blog-card"
 import { MotionDiv } from "@/components/motion-wrappers"
 import { getPostBySlug, getRelatedPosts, posts } from "@/data/posts"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, User, ArrowUpRight } from "lucide-react"
 import type { Metadata } from "next"
 
 interface BlogPostPageProps {
@@ -53,201 +50,308 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const contentParagraphs = post.content.split("\n\n")
 
     return (
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-screen flex-col bg-[#f5f0eb] text-[#1a1a1a]">
             <Navbar />
+            
             <main className="flex-1">
-                {/* Hero Section */}
-                <section className="relative h-[50vh] min-h-[350px] bg-black">
-                    <Image
-                        src={post.thumbnail}
-                        alt={post.title}
-                        fill
-                        className="object-cover opacity-50"
-                        priority
-                        quality={80}
+                {/* ── SLIM DARK HERO ── */}
+                <section className="relative bg-stone-900 pt-28 pb-14 overflow-hidden">
+                    <div
+                        className="absolute inset-0 opacity-[0.03]"
+                        style={{
+                            backgroundImage: "radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)",
+                            backgroundSize: "24px 24px",
+                        }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                    <div className="absolute right-[-4%] top-0 bottom-0 flex items-center pointer-events-none select-none">
+                        <span className="font-serif text-[16vw] font-bold text-white/[0.03] uppercase leading-none">
+                            Journal
+                        </span>
+                    </div>
 
-                    <div className="relative mx-auto flex h-full max-w-4xl flex-col justify-end px-4 pb-12 sm:px-6 lg:px-8">
+                    <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
                         <MotionDiv
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            initial={{ opacity: 0, x: -15 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.7 }}
+                            className="mb-8"
                         >
-                            <Link href="/blog" className="mb-4 inline-flex items-center gap-2 text-sm text-white/80 transition-colors hover:text-white">
-                                <ArrowLeft className="h-4 w-4" />
-                                Back to Blog
+                            <Link
+                                href="/blog"
+                                className="group inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] text-white/40 hover:text-white/80 transition-colors border-b border-white/10 hover:border-white/40 pb-0.5"
+                            >
+                                <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+                                Back to Journal
                             </Link>
-
-                            <Badge className="mb-4 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30">
-                                {post.category}
-                            </Badge>
-
-                            <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                                {post.title}
-                            </h1>
-
-                            <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-white/80">
-                                <span className="flex items-center gap-2">
-                                    <User className="h-4 w-4" />
-                                    {post.author}
-                                </span>
-                                <span className="flex items-center gap-2">
-                                    <Calendar className="h-4 w-4" />
-                                    {new Date(post.date).toLocaleDateString("en-IN", {
-                                        day: "numeric",
-                                        month: "long",
-                                        year: "numeric",
-                                    })}
-                                </span>
-                                <span className="flex items-center gap-2">
-                                    <Clock className="h-4 w-4" />
-                                    {post.readTime}
-                                </span>
-                            </div>
                         </MotionDiv>
+
+                        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-8">
+                            <div className="space-y-5 max-w-3xl">
+                                <MotionDiv
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.1 }}
+                                >
+                                    <span className="border border-white/15 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-[9px] uppercase tracking-[0.3em] text-white/60">
+                                        {post.category}
+                                    </span>
+                                </MotionDiv>
+                                <MotionDiv
+                                    initial={{ opacity: 0, y: 25 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                >
+                                    <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light leading-[1.15] tracking-wide text-white uppercase">
+                                        {post.title}
+                                    </h1>
+                                </MotionDiv>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                {/* Article Content */}
-                <section className="bg-background py-16 lg:py-24">
-                    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-                        <MotionDiv
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            <div className="prose prose-lg max-w-none text-muted-foreground">
-                                {contentParagraphs.map((paragraph, index) => {
-                                    // Handle bold markdown headers
-                                    if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
-                                        return (
-                                            <h3 key={index} className="mt-8 mb-3 text-xl font-semibold text-foreground">
-                                                {paragraph.replace(/\*\*/g, "")}
-                                            </h3>
-                                        )
-                                    }
-                                    // Handle list items
-                                    if (paragraph.includes("\n- ")) {
-                                        const lines = paragraph.split("\n")
-                                        const title = lines[0]
-                                        const items = lines.slice(1).filter(l => l.startsWith("- "))
-                                        return (
-                                            <div key={index}>
-                                                {title && (
-                                                    <h3 className="mt-8 mb-3 text-xl font-semibold text-foreground">
-                                                        {title.replace(/\*\*/g, "")}
-                                                    </h3>
-                                                )}
-                                                <ul className="mt-2 space-y-2 pl-1">
+                {/* ── MAIN ARTICLE SECTION (SPLIT LAYOUT) ── */}
+                <section className="py-14 sm:py-20">
+                    <div className="mx-auto max-w-7xl px-6 lg:px-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
+                            
+                            {/* LEFT COLUMN: Post Image & Content */}
+                            <div className="lg:col-span-8 space-y-10">
+                                <MotionDiv
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8 }}
+                                    className="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-stone-200 shadow-xl shadow-stone-400/20 ring-1 ring-stone-300/40"
+                                >
+                                    <Image
+                                        src={post.thumbnail}
+                                        alt={post.title}
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                        quality={90}
+                                    />
+                                </MotionDiv>
+
+                                <MotionDiv
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.8 }}
+                                    className="prose prose-stone max-w-none text-stone-600 bg-white p-8 sm:p-12 ring-1 ring-stone-200/60 rounded-sm shadow-sm"
+                                >
+                                    {contentParagraphs.map((paragraph, index) => {
+                                        // Handle bold markdown headers
+                                        if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
+                                            return (
+                                                <h3 key={index} className="font-serif text-xl sm:text-2xl font-light text-stone-850 mt-8 mb-4 uppercase tracking-wide border-b border-stone-100 pb-2">
+                                                    {paragraph.replace(/\*\*/g, "")}
+                                                </h3>
+                                            )
+                                        }
+                                        // Handle list items
+                                        if (paragraph.includes("\n- ")) {
+                                            const lines = paragraph.split("\n")
+                                            const title = lines[0]
+                                            const items = lines.slice(1).filter(l => l.startsWith("- "))
+                                            return (
+                                                <div key={index} className="space-y-3 my-6">
+                                                    {title && (
+                                                        <h4 className="font-serif text-lg font-light text-stone-800 uppercase tracking-wider">
+                                                            {title.replace(/\*\*/g, "")}
+                                                        </h4>
+                                                    )}
+                                                    <ul className="space-y-2 pl-4">
+                                                        {items.map((item, i) => (
+                                                            <li key={i} className="flex items-start gap-2.5 text-stone-650 leading-relaxed text-sm font-light">
+                                                                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-400" />
+                                                                <span>{item.replace(/^- /, "").replace(/\*\*/g, "")}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )
+                                        }
+                                        // Handle numbered lists
+                                        if (paragraph.match(/^\d\./) || paragraph.includes("\n1. ")) {
+                                            const items = paragraph.split("\n").filter(l => l.match(/^\d\./) || l.startsWith("1. ") || l.startsWith("2. ") || l.startsWith("3. ") || l.startsWith("4. ") || l.startsWith("5. "))
+                                            return (
+                                                <ol key={index} className="space-y-4 my-6 pl-1">
                                                     {items.map((item, i) => (
-                                                        <li key={i} className="flex items-start gap-2 text-muted-foreground leading-relaxed">
-                                                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                                                            {item.replace(/^- /, "").replace(/\*\*/g, "")}
+                                                        <li key={i} className="flex items-start gap-4 text-stone-650 leading-relaxed text-sm font-light">
+                                                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-stone-100 border border-stone-200 text-[10px] font-semibold text-stone-500">
+                                                                {i + 1}
+                                                            </span>
+                                                            <span className="pt-0.5">{item.replace(/^\d\.\s*/, "").replace(/^[1-9]\.\s*/, "")}</span>
                                                         </li>
                                                     ))}
-                                                </ul>
-                                            </div>
-                                        )
-                                    }
-                                    // Handle numbered lists
-                                    if (paragraph.match(/^\d\./)) {
-                                        const items = paragraph.split("\n").filter(l => l.match(/^\d\./))
+                                                </ol>
+                                            )
+                                        }
                                         return (
-                                            <ol key={index} className="mt-2 space-y-2 pl-1">
-                                                {items.map((item, i) => (
-                                                    <li key={i} className="flex items-start gap-3 text-muted-foreground leading-relaxed">
-                                                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                                                            {i + 1}
-                                                        </span>
-                                                        {item.replace(/^\d\.\s*/, "")}
-                                                    </li>
-                                                ))}
-                                            </ol>
+                                            <p key={index} className="text-sm sm:text-base font-light leading-relaxed text-stone-500 my-4">
+                                                {paragraph.replace(/\*\*/g, "")}
+                                            </p>
                                         )
-                                    }
-                                    return (
-                                        <p key={index} className="mt-4 leading-relaxed text-lg">
-                                            {paragraph.replace(/\*\*/g, "")}
-                                        </p>
-                                    )
-                                })}
+                                    })}
+                                </MotionDiv>
                             </div>
-                        </MotionDiv>
+
+                            {/* RIGHT COLUMN: Sidebar Metadata & Share (Sticky) */}
+                            <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+                                <div className="bg-white ring-1 ring-stone-200/60 p-6 sm:p-8 rounded-sm shadow-sm space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400">Article Info</span>
+                                        <div className="flex-1 h-px bg-stone-100" />
+                                    </div>
+
+                                    {/* Stats grid */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center py-2 border-b border-stone-100">
+                                            <span className="text-[10px] uppercase tracking-wider text-stone-400 flex items-center gap-2">
+                                                <User className="h-3.5 w-3.5" /> Author
+                                            </span>
+                                            <span className="text-[11px] font-medium text-stone-700">{post.author}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b border-stone-100">
+                                            <span className="text-[10px] uppercase tracking-wider text-stone-400 flex items-center gap-2">
+                                                <Calendar className="h-3.5 w-3.5" /> Published
+                                            </span>
+                                            <span className="text-[11px] font-medium text-stone-700">
+                                                {new Date(post.date).toLocaleDateString("en-IN", {
+                                                    day: "numeric",
+                                                    month: "long",
+                                                    year: "numeric",
+                                                })}
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b border-stone-100">
+                                            <span className="text-[10px] uppercase tracking-wider text-stone-400 flex items-center gap-2">
+                                                <Clock className="h-3.5 w-3.5" /> Reading Time
+                                            </span>
+                                            <span className="text-[11px] font-medium text-stone-700">{post.readTime}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Short callout */}
+                                    <div className="bg-stone-50 p-4 border border-stone-200/50 rounded-sm">
+                                        <p className="text-[11px] font-light leading-relaxed text-stone-500">
+                                            Interested in how these design and construction principles apply to your property? Let's discuss your engineering solutions.
+                                        </p>
+                                        <Link
+                                            href="/contact"
+                                            className="group flex items-center justify-between text-[10px] uppercase tracking-[0.25em] font-medium text-stone-800 hover:text-stone-600 transition-colors pt-3 mt-3 border-t border-stone-200/70"
+                                        >
+                                            Get Consultation
+                                            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </section>
 
-                {/* Related Posts */}
+                {/* ── RELATED POSTS ── */}
                 {displayPosts.length > 0 && (
-                    <section className="bg-secondary py-16 lg:py-24 border-t border-border">
-                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <section className="bg-white py-16 sm:py-24 border-t border-stone-200">
+                        <div className="mx-auto max-w-7xl px-6 lg:px-10">
                             <MotionDiv
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 18 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
-                                className="mb-12 text-center"
+                                className="mb-12"
                             >
-                                <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                                    More Articles
-                                </h2>
-                                <p className="mt-4 text-muted-foreground">
-                                    Continue reading more insights from our team.
-                                </p>
+                                <div className="flex items-center gap-5 mb-8">
+                                    <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 font-medium">Continue Reading</span>
+                                    <div className="flex-1 h-px bg-stone-200" />
+                                </div>
+                                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                                    <h2 className="font-serif text-3xl sm:text-4xl font-light tracking-wide text-stone-800 uppercase">
+                                        More Articles
+                                    </h2>
+                                    <Link
+                                        href="/blog"
+                                        className="group inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.35em] text-stone-400 hover:text-stone-700 transition-colors"
+                                    >
+                                        View All Journal
+                                        <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                    </Link>
+                                </div>
                             </MotionDiv>
 
-                            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                 {displayPosts.map((relatedPost, index) => (
                                     <MotionDiv
                                         key={relatedPost.id}
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                                        transition={{ duration: 0.5, delay: index * 0.08 }}
                                     >
-                                        <BlogCard post={relatedPost} />
+                                        <Link href={`/blog/${relatedPost.slug}`} className="group block h-full">
+                                            <div className="bg-[#f5f0eb] ring-1 ring-stone-200/70 hover:ring-stone-300 hover:shadow-xl hover:shadow-stone-300/25 transition-all duration-400 overflow-hidden rounded-sm h-full flex flex-col">
+                                                <div className="relative aspect-[4/3] overflow-hidden bg-stone-100 flex-shrink-0">
+                                                    <Image
+                                                        src={relatedPost.thumbnail}
+                                                        alt={relatedPost.title}
+                                                        fill
+                                                        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                                                        sizes="(max-width: 768px) 100vw, 33vw"
+                                                        quality={60}
+                                                    />
+                                                    <div className="absolute top-3 left-3">
+                                                        <span className="text-[8px] uppercase tracking-[0.25em] text-white bg-stone-900/60 backdrop-blur-sm px-2.5 py-1">
+                                                            {relatedPost.category}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div className="p-5 flex flex-col flex-1 gap-2 bg-white">
+                                                    <div className="flex items-center gap-3 text-[8px] uppercase tracking-[0.2em] text-stone-400">
+                                                        <span>{new Date(relatedPost.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</span>
+                                                        <span>&bull; {relatedPost.readTime}</span>
+                                                    </div>
+                                                    <h3 className="font-serif text-base font-light tracking-wide text-stone-800 uppercase group-hover:text-stone-600 transition-colors line-clamp-2">
+                                                        {relatedPost.title}
+                                                    </h3>
+                                                    <p className="text-[11px] font-light leading-relaxed text-stone-450 line-clamp-2 mt-1">
+                                                        {relatedPost.excerpt}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Link>
                                     </MotionDiv>
                                 ))}
-                            </div>
-
-                            <div className="mt-12 text-center">
-                                <Button asChild variant="outline" className="bg-transparent">
-                                    <Link href="/blog">View All Articles</Link>
-                                </Button>
                             </div>
                         </div>
                     </section>
                 )}
 
-                {/* CTA Section */}
-                <section className="bg-primary py-16">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <MotionDiv
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="text-center"
-                        >
-                            <h2 className="text-3xl font-bold text-primary-foreground sm:text-4xl">
-                                Ready to Start Your Project?
-                            </h2>
-                            <p className="mt-4 text-lg text-primary-foreground/80">
-                                Let&apos;s bring your vision to life. Get in touch with us today.
-                            </p>
-                            <div className="mt-8 flex flex-wrap justify-center gap-4">
-                                <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-                                    <Link href="/contact">Contact Us</Link>
-                                </Button>
-                                <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                                    <a href="tel:+919925616966">Call Now</a>
-                                </Button>
+                {/* ── CTA SECTION ── */}
+                <section className="bg-stone-900 py-14 text-white">
+                    <div className="mx-auto max-w-7xl px-6 lg:px-10">
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
+                            <div className="space-y-2 text-center sm:text-left">
+                                <p className="text-[9px] uppercase tracking-[0.35em] text-stone-400">Interested in working with us?</p>
+                                <h3 className="font-serif text-2xl sm:text-3xl font-light uppercase tracking-wide">
+                                    Let's Discuss Your Project
+                                </h3>
                             </div>
-                        </MotionDiv>
+                            <div className="flex gap-4">
+                                <Link
+                                    href="/contact"
+                                    className="border border-white/20 bg-white/10 hover:bg-white hover:text-stone-900 text-white px-8 py-3.5 text-[10px] uppercase tracking-[0.25em] transition-all duration-300 font-medium"
+                                >
+                                    Get In Touch
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </main>
+            
             <Footer />
             <WhatsAppButton />
         </div>

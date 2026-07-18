@@ -20,17 +20,32 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/team", label: "Team" },
+]
+
+const postLinks = [
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
 ]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   // Close desktop dropdown when clicking outside
   useEffect(() => {
@@ -54,94 +69,83 @@ export function Navbar() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? "bg-[#0a0a0a]/90 border-b border-white/5 py-4 backdrop-blur-md"
+          : "bg-transparent py-6 border-b border-transparent"
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Image
-              src="/logo_new.png"
-              alt="Smart Engineers Logo"
-              width={60}
-              height={100}
-              className="rounded"
-            />
-          </motion.div>
-          <div className="hidden sm:block">
-            <span className="text-lg font-bold text-foreground">Smart Engineers</span>
-            <p className="text-xs text-muted-foreground">Design. Build. Deliver.</p>
-          </div>
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
+
+        {/* SVG Logo */}
+        <Link href="/" className="flex items-center group" aria-label="Smart Engineers — Home">
+          <Image
+            src="/logo.svg"
+            alt="Smart Engineers"
+            width={180}
+            height={113}
+            priority
+            className="h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-75"
+          />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 lg:flex">
-          {["Home", "About", "Team"].map((item, index) => (
-            <motion.div
-              key={item}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
+        <nav className="hidden items-center gap-8 lg:flex">
+          {/* Main Links */}
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="relative py-1 text-xs font-medium uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white group"
             >
-              <Link
-                href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                className="relative px-3 py-2 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground group"
-              >
-                {item}
-                <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all group-hover:w-full" />
-              </Link>
-            </motion.div>
+              {link.label}
+              <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
+            </Link>
           ))}
 
-          {/* Custom Services Mega Dropdown */}
-          <motion.div
+          {/* Services Dropdown */}
+          <div
             ref={dropdownRef}
             className="relative"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.15 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
+              className="flex items-center gap-1.5 py-1 text-xs font-medium uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white"
               onClick={() => setServicesOpen(!servicesOpen)}
             >
               Services
-              <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`} />
+              <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`} />
             </button>
 
             <AnimatePresence>
               {servicesOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute left-1/2 top-full mt-2 w-[520px] -translate-x-1/2 rounded-2xl border border-border bg-background/98 p-2 shadow-xl backdrop-blur-md"
+                  exit={{ opacity: 0, y: 15, scale: 0.98 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute left-1/2 top-full mt-4 w-[520px] -translate-x-1/2 border border-white/10 bg-[#0a0a0a]/95 p-3 shadow-2xl backdrop-blur-md rounded-none"
                 >
                   {/* Services Grid */}
-                  <div className="grid grid-cols-2 gap-1">
+                  <div className="grid grid-cols-2 gap-2">
                     {services.map((service) => {
                       const Icon = serviceIconMap[service.icon] || Building2
                       return (
                         <Link
                           key={service.slug}
                           href={`/services/${service.slug}`}
-                          className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-muted"
+                          className="group flex items-start gap-3 p-3 transition-colors hover:bg-white/[0.04]"
                           onClick={() => setServicesOpen(false)}
                         >
-                          <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/5 transition-colors group-hover:bg-primary/10">
-                            <Icon className="h-5 w-5 text-primary" />
+                          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center border border-white/10 bg-white/[0.02] transition-colors group-hover:bg-white group-hover:text-[#0a0a0a] text-white">
+                            <Icon className="h-4 w-4" />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-sm font-semibold text-foreground">{service.title}</p>
-                            <p className="mt-0.5 text-xs leading-snug text-muted-foreground line-clamp-2">{service.shortDescription}</p>
+                            <p className="text-xs uppercase tracking-wider font-semibold text-white group-hover:text-white/80">{service.title}</p>
+                            <p className="mt-1 text-[10px] leading-relaxed text-white/40 line-clamp-2">{service.shortDescription}</p>
                           </div>
                         </Link>
                       )
@@ -149,221 +153,168 @@ export function Navbar() {
                   </div>
 
                   {/* View All Footer */}
-                  <div className="mt-1 border-t border-border pt-2">
+                  <div className="mt-2 border-t border-white/5 pt-2">
                     <Link
                       href="/services"
-                      className="flex items-center justify-center gap-2 rounded-xl p-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary/5"
+                      className="flex items-center justify-center gap-2 p-2 text-xs uppercase tracking-wider font-medium text-white transition-colors hover:bg-white hover:text-[#0a0a0a]"
                       onClick={() => setServicesOpen(false)}
                     >
                       View All Services
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-3 w-3" />
                     </Link>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
 
-          {["Projects", "Blog"].map((item, index) => (
-            <motion.div
-              key={item}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
+          {/* Remaining Links */}
+          {postLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="relative py-1 text-xs font-medium uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white group"
             >
-              <Link
-                href={`/${item.toLowerCase()}`}
-                className="relative px-3 py-2 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground group"
-              >
-                {item}
-                <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all group-hover:w-full" />
-              </Link>
-            </motion.div>
+              {link.label}
+              <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
+            </Link>
           ))}
         </nav>
 
-        <motion.div
-          className="hidden lg:block"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-        >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild>
+        {/* Action Button */}
+        <div className="hidden lg:block">
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              asChild
+              className="border border-white/20 bg-transparent hover:bg-white hover:text-[#0a0a0a] text-white text-xs uppercase tracking-[0.2em] rounded-none px-6 py-5 transition-all duration-300 font-medium"
+            >
               <Link href="/contact">Get a Quote</Link>
             </Button>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Mobile Menu Button */}
-        <motion.button
-          className="lg:hidden"
+        <button
+          className="lg:hidden text-white hover:text-white/70 transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
-          whileTap={{ scale: 0.9 }}
         >
-          <AnimatePresence mode="wait">
-            {isOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <X className="h-6 w-6" />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="menu"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Menu className="h-6 w-6" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.button>
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation Panel */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="border-t border-border bg-background lg:hidden overflow-hidden"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 top-[72px] z-40 bg-[#0a0a0a] border-t border-white/5 lg:hidden flex flex-col justify-between p-8 overflow-y-auto"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <nav className="flex flex-col px-4 py-4">
-              {navLinks.map((link, index) => {
-                // Insert services accordion after "Team" (index 2)
-                if (link.label === "Projects") {
-                  return (
-                    <div key="services-and-projects">
-                      {/* Services Accordion */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
-                      >
-                        <button
-                          className="flex w-full items-center justify-between py-3 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
-                          onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                        >
-                          Services
-                          <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`} />
-                        </button>
+            <nav className="flex flex-col gap-5 mt-6">
+              <Link
+                href="/"
+                className="text-lg font-serif font-light tracking-[0.15em] text-white/80 hover:text-white transition-colors py-1.5 uppercase"
+                onClick={() => setIsOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className="text-lg font-serif font-light tracking-[0.15em] text-white/80 hover:text-white transition-colors py-1.5 uppercase"
+                onClick={() => setIsOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                href="/team"
+                className="text-lg font-serif font-light tracking-[0.15em] text-white/80 hover:text-white transition-colors py-1.5 uppercase"
+                onClick={() => setIsOpen(false)}
+              >
+                Team
+              </Link>
 
-                        <AnimatePresence>
-                          {mobileServicesOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                              className="overflow-hidden"
-                            >
-                              <div className="ml-3 border-l-2 border-border pl-4 pb-2">
-                                <Link
-                                  href="/services"
-                                  className="flex items-center gap-2 py-2.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  All Services
-                                  <ArrowRight className="h-3.5 w-3.5" />
-                                </Link>
-                                {services.map((service) => {
-                                  const Icon = serviceIconMap[service.icon] || Building2
-                                  return (
-                                    <Link
-                                      key={service.slug}
-                                      href={`/services/${service.slug}`}
-                                      className="flex items-center gap-3 py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                      <Icon className="h-4 w-4 text-primary/60" />
-                                      {service.title}
-                                    </Link>
-                                  )
-                                })}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </motion.div>
+              {/* Services Mobile Accordion */}
+              <div>
+                <button
+                  className="flex w-full items-center justify-between text-lg font-serif font-light tracking-[0.15em] text-white/80 hover:text-white transition-colors py-1.5 uppercase"
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                >
+                  Services
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`} />
+                </button>
 
-                      {/* Projects link */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: (index + 1) * 0.05 }}
-                      >
+                <AnimatePresence>
+                  {mobileServicesOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="ml-3 border-l border-white/10 pl-4 py-2 flex flex-col gap-3">
                         <Link
-                          href="/projects"
-                          className="py-3 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground block"
+                          href="/services"
+                          className="flex items-center gap-2 text-xs uppercase tracking-wider text-white/80 font-medium"
                           onClick={() => setIsOpen(false)}
                         >
-                          Projects
+                          All Services
+                          <ArrowRight className="h-3 w-3" />
                         </Link>
-                      </motion.div>
-                    </div>
-                  )
-                }
-
-                // Skip rendering Projects again in the normal loop
-                if (link.label === "Contact") {
-                  return (
-                    <motion.div
-                      key={link.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: (index + 1) * 0.05 }}
-                    >
-                      <Link
-                        href={link.href}
-                        className="py-3 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground block"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {link.label}
-                      </Link>
+                        {services.map((service) => {
+                          const Icon = serviceIconMap[service.icon] || Building2
+                          return (
+                            <Link
+                              key={service.slug}
+                              href={`/services/${service.slug}`}
+                              className="flex items-center gap-3 text-xs text-white/50 hover:text-white uppercase tracking-wider py-1"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              <Icon className="h-3.5 w-3.5 text-white/40" />
+                              {service.title}
+                            </Link>
+                          )
+                        })}
+                      </div>
                     </motion.div>
-                  )
-                }
+                  )}
+                </AnimatePresence>
+              </div>
 
-                return (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="py-3 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground block"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                )
-              })}
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: (navLinks.length + 1) * 0.05 }}
+              <Link
+                href="/projects"
+                className="text-lg font-serif font-light tracking-[0.15em] text-white/80 hover:text-white transition-colors py-1.5 uppercase"
+                onClick={() => setIsOpen(false)}
               >
-                <Button asChild className="mt-4 w-full">
-                  <Link href="/contact" onClick={() => setIsOpen(false)}>
-                    Get a Quote
-                  </Link>
-                </Button>
-              </motion.div>
+                Projects
+              </Link>
+              <Link
+                href="/blog"
+                className="text-lg font-serif font-light tracking-[0.15em] text-white/80 hover:text-white transition-colors py-1.5 uppercase"
+                onClick={() => setIsOpen(false)}
+              >
+                Blog
+              </Link>
             </nav>
+
+            <div className="flex flex-col gap-6 border-t border-white/5 pt-6 mt-6">
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[9px] uppercase tracking-[0.3em] text-white/40">Get in Touch</p>
+                <p className="text-xs text-white/80 font-light">+91 99256 16966 / +91 99256 44236</p>
+                <p className="text-xs text-white/80 font-light font-sans">smartengineering@gmail.com</p>
+              </div>
+
+              <Button
+                asChild
+                className="w-full border border-white/20 bg-transparent text-white text-xs uppercase tracking-[0.25em] rounded-none py-6 font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                <Link href="/contact">Get a Quote</Link>
+              </Button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

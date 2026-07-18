@@ -48,7 +48,6 @@ Surendranagar, Gujarat 363020
 - +91 99256 44236
 
 **Email:** 
-[info@smartengineers.in](mailto:info@smartengineers.in)
 
 **Website:** 
 [smartengineers.in](http://smartengineers.in) (under development)
