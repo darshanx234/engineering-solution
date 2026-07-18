@@ -20,6 +20,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     })
 
     lenisRef.current = lenis
+    if (typeof window !== "undefined") {
+      ;(window as any).lenis = lenis
+    }
 
     function raf(time: number) {
       lenis.raf(time)
@@ -31,6 +34,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     return () => {
       lenis.destroy()
       lenisRef.current = null
+      if (typeof window !== "undefined") {
+        delete (window as any).lenis
+      }
     }
   }, [])
 

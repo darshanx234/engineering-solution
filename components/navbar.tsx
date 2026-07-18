@@ -36,6 +36,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
 
   // Disable body scroll when mobile menu is open
   useEffect(() => {
@@ -46,6 +47,26 @@ export function Navbar() {
     }
     return () => {
       document.body.style.overflow = ""
+    }
+  }, [isOpen])
+
+  // Prevent scroll gestures inside mobile menu from bubbling up to Lenis
+  useEffect(() => {
+    const el = mobileMenuRef.current
+    if (!el) return
+
+    const handleScrollEvent = (e: Event) => {
+      e.stopPropagation()
+    }
+
+    el.addEventListener("wheel", handleScrollEvent, { passive: true })
+    el.addEventListener("touchstart", handleScrollEvent, { passive: true })
+    el.addEventListener("touchmove", handleScrollEvent, { passive: true })
+
+    return () => {
+      el.removeEventListener("wheel", handleScrollEvent)
+      el.removeEventListener("touchstart", handleScrollEvent)
+      el.removeEventListener("touchmove", handleScrollEvent)
     }
   }, [isOpen])
 
@@ -233,6 +254,7 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={mobileMenuRef}
             className={`fixed inset-x-0 bottom-0 z-40 bg-[#0a0a0a] border-t border-white/5 lg:hidden flex flex-col justify-between p-8 overflow-y-auto transition-all duration-500 ${
               isScrolled ? "top-[72px]" : "top-[88px]"
             }`}
