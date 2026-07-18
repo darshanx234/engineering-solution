@@ -20,7 +20,7 @@ const serviceIconMap: Record<string, React.ElementType> = {
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/team", label: "Team" },
+  // { href: "/team", label: "Team" },
 ]
 
 const postLinks = [
@@ -111,8 +111,8 @@ export function Navbar() {
     <>
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-            ? "bg-[#0a0a0a]/90 border-b border-white/5 py-4 backdrop-blur-md"
-            : "bg-transparent py-6 border-b border-transparent"
+          ? "bg-[#0a0a0a]/90 border-b border-white/5 py-4 backdrop-blur-md"
+          : "bg-transparent py-6 border-b border-transparent"
           }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -121,9 +121,9 @@ export function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
 
           {/* SVG Logo */}
-          <Link 
-            href="/" 
-            className="flex items-center group" 
+          <Link
+            href="/"
+            className="flex items-center group"
             aria-label="Smart Engineers — Home"
             onClick={() => setIsOpen(false)}
           >
@@ -255,9 +255,8 @@ export function Navbar() {
         {isOpen && (
           <motion.div
             ref={mobileMenuRef}
-            className={`fixed inset-x-0 bottom-0 z-40 bg-[#0a0a0a] border-t border-white/5 lg:hidden flex flex-col justify-between p-8 overflow-y-auto transition-all duration-500 ${
-              isScrolled ? "top-[72px]" : "top-[88px]"
-            }`}
+            className={`fixed inset-x-0 bottom-0 z-40 bg-[#0a0a0a] border-t border-white/5 lg:hidden flex flex-col justify-between p-8 overflow-y-auto transition-all duration-500 ${isScrolled ? "top-[72px]" : "top-[88px]"
+              }`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -278,13 +277,13 @@ export function Navbar() {
               >
                 About
               </Link>
-              <Link
+              {/* <Link
                 href="/team"
                 className="text-lg font-serif font-light tracking-[0.15em] text-white/80 hover:text-white transition-colors py-1.5 uppercase"
                 onClick={() => setIsOpen(false)}
               >
                 Team
-              </Link>
+              </Link> */}
 
               {/* Services Mobile Accordion */}
               <div>
